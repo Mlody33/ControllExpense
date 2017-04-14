@@ -42,6 +42,7 @@ public class Main extends Application {
 		
 		initMainView();
 		showExpenseOverview();
+		//I added something to test repository from new IDE
 //		showAddExpenseDialog(new Expense());
 	}
 	

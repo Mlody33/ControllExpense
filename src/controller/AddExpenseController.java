@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Expense;
 import javafx.scene.control.Alert.AlertType;
@@ -19,16 +20,16 @@ import javafx.scene.control.Alert.AlertType;
 public class AddExpenseController implements Initializable {
 
 	@FXML TextField newName;
-	@FXML TextField newCategory;
-	@FXML ComboBox<String> newCategoryComboBox;
+	@FXML ComboBox<String> newCategory;
 	@FXML TextField newPrice;
-	@FXML TextField newQuantity;
-	@FXML Spinner newQuantitySpinner;
+	@FXML Spinner newQuantity;
 	@FXML CheckBox isNewExpenseIsPaidByCreditCard;
 
-	@FXML DatePicker newExpenseDate;
-	@FXML Button addExpenseButton;
+	@FXML Tooltip categoryToolTip;
 
+	@FXML DatePicker newExpenseDate;
+
+	@FXML Button addExpenseButton;
 	@FXML Button cancelExpenseButton;
 
 	private Stage dialogStage;
@@ -37,18 +38,94 @@ public class AddExpenseController implements Initializable {
 	private boolean isAccepted = false;
 	
 	private ObservableList<String> categoryList = FXCollections.observableArrayList();
-	
-	
+	private ObservableList<String> matchedCategory = FXCollections.observableArrayList();
+	private int indexOfMatchedCategory;
+
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1) {	categoryToolTip.setAutoHide(true); }
+	public void setDialogStage(Stage dialogStage) {	this.dialogStage = dialogStage;	}
+	public void setMain(Main main){ this.main = main; }
+	public boolean isAcceptedNewExpense(){
+		return isAccepted;
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+
+	public void setExpense(Expense expense) {
+		categoryList = main.getDatabase().selectExpensesCategory();
+		newCategory.setItems(categoryList);
+
+		this.expense = expense;
+
+		newName.setText(expense.getName());
+		newCategory.getEditor().setText(expense.getCategory());
+		if(expense.getPrice() == 0)
+			newPrice.clear();
+		else
+			newPrice.setText(Double.toString(expense.getPrice()));
+		if(expense.getQuantity() == 0)
+			newQuantity.getEditor().clear();
+		else
+			newQuantity.getEditor().setText(Integer.toString(expense.getQuantity()));
+		isNewExpenseIsPaidByCreditCard.setSelected(expense.isPaidByCreditCard());
+
+		LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		if(expense.getDate() == null)
+			newExpenseDate.setValue(localDate);
+		else
+			newExpenseDate.setValue(expense.getDate());
 	}
-	
+
+	public void handleKeyReleased(KeyEvent keyEvent) {
+		switch(keyEvent.getCode().toString()){
+			case "ENTER":
+				System.out.println("ENTER PRESSED");
+				newCategory.getEditor().setText(categoryToolTip.getText());
+				break;
+			case "RIGHT":
+			case "DOWN":
+				System.out.println("RIGHT PRESSED");
+				if(indexOfMatchedCategory == matchedCategory.size()-1) {
+					indexOfMatchedCategory = -1;
+				}
+				categoryToolTip.setText(matchedCategory.get(++indexOfMatchedCategory));
+				break;
+			case "LEFT":
+			case "UP":
+				System.out.println("LEFT PRESSED");
+				if(indexOfMatchedCategory == 0)
+					indexOfMatchedCategory = matchedCategory.size();
+				categoryToolTip.setText(matchedCategory.get(--indexOfMatchedCategory));
+				break;
+			default:
+				matchedCategory.clear();
+				System.out.println("DEFAULT " + keyEvent.getCode().toString());
+				findInCategory(newCategory.getEditor().getText());
+				if (!matchedCategory.isEmpty()) {
+					categoryToolTip.setText(matchedCategory.get(indexOfMatchedCategory));
+					categoryToolTip.show(dialogStage);
+					categoryToolTip.setX(dialogStage.getX() + newCategory.getLayoutX());
+					categoryToolTip.setY(dialogStage.getY() + newCategory.getLayoutY() + newCategory.getHeight() + 35);
+				} else
+					categoryToolTip.hide();
+				break;
+		}
+	}
+
+	public void findInCategory(String value){
+		if(value.isEmpty())
+			matchedCategory.clear();
+		for(String category: categoryList){
+			if(category.toLowerCase().contains(value.toLowerCase())){
+				System.out.println("SEARCH " + value.toString() + " in cat " + category.toString());
+				matchedCategory.add(category);
+			}
+		}
+		System.out.println("SIZE OF FINDING CAT " + matchedCategory.size());
+		indexOfMatchedCategory = 0;
+	}
+
 	@FXML public void handleAddExpense() {
-		if(newName.getText() == null | newCategory.getText() == null | newPrice.getText().isEmpty() | newQuantity.getText().isEmpty() | newExpenseDate.getValue() == null){
+		if(newName.getText() == null | newCategory.getEditor().getText() == null | newPrice.getText().isEmpty() | newQuantity.getEditor().getText().isEmpty() | newExpenseDate.getValue() == null){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
 			alert.setTitle("Brak danych");
@@ -57,9 +134,9 @@ public class AddExpenseController implements Initializable {
 			alert.showAndWait();
 		} else {
 			expense.setName(newName.getText());
-			expense.setCategory(newCategoryComboBox.getEditor().getText());
+			expense.setCategory(newCategory.getEditor().getText());
 			expense.setPrice(Double.parseDouble(newPrice.getText()));
-			expense.setQuantity(Integer.parseInt(newQuantity.getText()));
+			expense.setQuantity(Integer.parseInt(newQuantity.getEditor().getText()));
 			expense.setPaidByCreditCard(isNewExpenseIsPaidByCreditCard.isSelected());
 			expense.setDate(newExpenseDate.getValue());
 
@@ -73,39 +150,4 @@ public class AddExpenseController implements Initializable {
 	@FXML public void handleCancelExpense() {
 		dialogStage.close();
 	}
-	
-	public boolean isAcceptedNewExpense(){
-		return isAccepted;
-	}
-
-	public void setExpense(Expense expense) {
-
-		categoryList = main.getDatabase().selectExpensesCategory();
-		newCategoryComboBox.setItems(categoryList);
-		
-		this.expense = expense;
-		
-		newName.setText(expense.getName());
-		newCategory.setText(expense.getCategory());
-		if(expense.getPrice() == 0)
-			newPrice.clear();
-		else
-			newPrice.setText(Double.toString(expense.getPrice()));
-		if(expense.getQuantity() == 0)
-			newQuantity.clear();
-		else
-			newQuantity.setText(Integer.toString(expense.getQuantity()));
-		isNewExpenseIsPaidByCreditCard.setSelected(expense.isPaidByCreditCard());
-		
-		LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		if(expense.getDate() == null)
-			newExpenseDate.setValue(localDate);
-		else
-			newExpenseDate.setValue(expense.getDate());
-	}
-
-	public void setMain(Main main){
-		this.main = main;
-	}
-	
 }

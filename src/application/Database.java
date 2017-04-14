@@ -27,7 +27,7 @@ public class Database {
 			connection = DriverManager.getConnection(URL_DATABASE+NAME_DATABASE+PROPERTIES_DATABASE, USERNAME_DATABASE, PASSWORD_DATABASE);
 			statement = connection.createStatement();			
 		}catch(SQLException e){
-			System.err.println("Error while connecting to database");
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class Database {
 			connection.close();
 			statement.close();
 		}catch(SQLException e){
-			System.err.println("Error while closing connection");
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class Database {
 		try{
 			statement.executeUpdate("INSERT INTO expense (name, category, price, quantity, isPaidByCreditCard, date) values ('"+expense.getName()+"', '"+expense.getCategory()+"', '"+expense.getPrice()+"', '"+expense.getQuantity()+"', '"+expense.isPaidByCreditCardToInt()+"', '"+expense.getDate()+"')");
 		}catch(SQLException e){
-			System.err.println("Error SQL while inserting data to database");
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 
 		}
 	}
@@ -123,7 +123,7 @@ public class Database {
 		try{
 			statement.executeUpdate("UPDATE expense SET name='"+expense.getName()+"', category='"+expense.getCategory()+"', price='"+expense.getPrice()+"', quantity='"+expense.getQuantity()+"', isPaidByCreditCard='"+expense.isPaidByCreditCardToInt()+"', date='"+expense.getDate()+"' WHERE id = '"+expense.getId()+"'");
 		}catch(SQLException e){
-			System.err.println("Error SQL while updateing data into database");
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class Database {
 		try{
 			statement.executeUpdate("DELETE FROM expense WHERE id = '"+expense.getId()+"'");
 		}catch(SQLException e){
-			System.err.println("Error SQL while removing data from database");
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 	}
 	

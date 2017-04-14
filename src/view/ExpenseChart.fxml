@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseReportChart">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseReportChart">
    <children>
       <BorderPane layoutX="210.0" layoutY="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -66,8 +66,8 @@
                            </children></VBox>
                         <VBox fx:id="yearlyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="160.0" text="Pokaż poprzedni rok" />
-                              <Button mnemonicParsing="false" prefWidth="160.0" text="Pokaż aktualny rok" />
+                              <Button mnemonicParsing="false" onAction="#handleShowLastYear" prefWidth="160.0" text="Pokaż poprzedni rok" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentYear" prefWidth="160.0" text="Pokaż aktualny rok" />
                               <Button mnemonicParsing="false" prefWidth="160.0" text="Pokaż szczegółowe dane" />
                            </children></VBox>
                      </children>

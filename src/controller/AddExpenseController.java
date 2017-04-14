@@ -24,9 +24,7 @@ public class AddExpenseController implements Initializable {
 	@FXML TextField newPrice;
 	@FXML Spinner newQuantity;
 	@FXML CheckBox isNewExpenseIsPaidByCreditCard;
-
 	@FXML Tooltip categoryToolTip;
-
 	@FXML DatePicker newExpenseDate;
 
 	@FXML Button addExpenseButton;
@@ -63,7 +61,7 @@ public class AddExpenseController implements Initializable {
 		else
 			newPrice.setText(Double.toString(expense.getPrice()));
 		if(expense.getQuantity() == 0)
-			newQuantity.getEditor().clear();
+			newQuantity.getEditor().setText("1");
 		else
 			newQuantity.getEditor().setText(Integer.toString(expense.getQuantity()));
 		isNewExpenseIsPaidByCreditCard.setSelected(expense.isPaidByCreditCard());
@@ -78,12 +76,11 @@ public class AddExpenseController implements Initializable {
 	public void handleKeyReleased(KeyEvent keyEvent) {
 		switch(keyEvent.getCode().toString()){
 			case "ENTER":
-				System.out.println("ENTER PRESSED");
 				newCategory.getEditor().setText(categoryToolTip.getText());
+				categoryToolTip.hide();
 				break;
 			case "RIGHT":
 			case "DOWN":
-				System.out.println("RIGHT PRESSED");
 				if(indexOfMatchedCategory == matchedCategory.size()-1) {
 					indexOfMatchedCategory = -1;
 				}
@@ -91,20 +88,18 @@ public class AddExpenseController implements Initializable {
 				break;
 			case "LEFT":
 			case "UP":
-				System.out.println("LEFT PRESSED");
 				if(indexOfMatchedCategory == 0)
 					indexOfMatchedCategory = matchedCategory.size();
 				categoryToolTip.setText(matchedCategory.get(--indexOfMatchedCategory));
 				break;
 			default:
 				matchedCategory.clear();
-				System.out.println("DEFAULT " + keyEvent.getCode().toString());
 				findInCategory(newCategory.getEditor().getText());
 				if (!matchedCategory.isEmpty()) {
 					categoryToolTip.setText(matchedCategory.get(indexOfMatchedCategory));
 					categoryToolTip.show(dialogStage);
 					categoryToolTip.setX(dialogStage.getX() + newCategory.getLayoutX());
-					categoryToolTip.setY(dialogStage.getY() + newCategory.getLayoutY() + newCategory.getHeight() + 35);
+					categoryToolTip.setY(dialogStage.getY() + newCategory.getLayoutY() + newCategory.getHeight() + 30);
 				} else
 					categoryToolTip.hide();
 				break;
@@ -116,11 +111,9 @@ public class AddExpenseController implements Initializable {
 			matchedCategory.clear();
 		for(String category: categoryList){
 			if(category.toLowerCase().contains(value.toLowerCase())){
-				System.out.println("SEARCH " + value.toString() + " in cat " + category.toString());
 				matchedCategory.add(category);
 			}
 		}
-		System.out.println("SIZE OF FINDING CAT " + matchedCategory.size());
 		indexOfMatchedCategory = 0;
 	}
 

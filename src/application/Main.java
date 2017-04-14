@@ -42,6 +42,7 @@ public class Main extends Application {
 		
 		initMainView();
 		showExpenseOverview();
+		showExpenseChart();
 //		showAddExpenseDialog(new Expense());
 	}
 	

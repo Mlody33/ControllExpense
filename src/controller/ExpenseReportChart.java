@@ -50,7 +50,6 @@ public class ExpenseReportChart implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-				
 		ObservableList<String> chartTypes = FXCollections.observableArrayList("Dzienny", "Tygodniowy", "Miesieczny", "Roczny");
 		chartTypeComboBox.setItems(chartTypes);
 	}
@@ -67,17 +66,90 @@ public class ExpenseReportChart implements Initializable {
 		chartTypeComboBox.getSelectionModel().selectFirst();
 	}
 
-	@FXML public void changeChartType(ActionEvent event) {
-		
-		System.out.println("Changed chart type: "+chartTypeComboBox.getSelectionModel().getSelectedItem());
-		
+	public void dailyChartType(LocalDate date){
+		choosenDayForDailyChart.setValue(date);//FIXME IT CALL dailyChartType TWICE WHEN IT CALL FIRST TIME
+
+		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
 		reportChart.getData().clear();
-		
+
+		for(Expense data: main.getDatabase().selectExpensesByDate(date.toString())){
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(data.getName()+"\n( "+data.getQuantity()+" szt. po " + data.getPrice() + " zl. )", data.getPrice()*data.getQuantity()));
+		}
+		if(!main.getDatabase().selectExpensesByDate(date.toString()).isEmpty()) {
+			seriesChartData.setName(date.toString() + ", " + date.getDayOfWeek().name().toLowerCase());
+			reportChart.setTitle("Dzienny, Suma " + main.getDatabase().selectExpensesSumByDate(date.toString()) + " zl. ");
+			reportChart.getData().add(seriesChartData);
+		}else
+			reportChart.setTitle("Brak danych w wybranym dniu");
+	}
+
+	public void weeklyChartType(LocalDate startDate) {
+
+		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
+
+		currentlySetDate = startDate;
+
+		for(int i = 0; i < countOfLastWeekDays; i++){
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfWeek().name(), main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
+			currentlySetDate = currentlySetDate.minusDays(1);
+		}
+
+		seriesChartData.setName(startDate + " - " + currentlySetDate.plusDays(1));
+		reportChart.setTitle("Tygodniowy");
+		reportChart.getData().add(seriesChartData);
+
+	}
+
+	public void monthlyChartType(LocalDate startDate) {
+
+		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
+
+		currentlySetDate = startDate.minusDays(startDate.getDayOfMonth() - 1);
+
+		for(int i = 1; i <= startDate.getMonth().maxLength(); i++){
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfMonth() + ", ", main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
+			currentlySetDate = currentlySetDate.plusDays(1);
+		}
+		seriesChartData.setName(startDate.getMonth().name());
+		reportChart.setTitle("Miesieczny");
+		reportChart.getData().add(seriesChartData);
+
+	}
+
+	public void yearlyChartType(LocalDate startDate) {
+		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
+
+		currentlySetDate = startDate.minusDays(startDate.getDayOfYear() - 1);
+
+		for(int i = 1; i <= 12; i++){
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getMonth().toString(),
+				main.getDatabase().selectExpensesSumByMonth(currentlySetDate)));
+			currentlySetDate = currentlySetDate.plusMonths(1);
+		}
+
+		seriesChartData.setName(startDate.getYear()+"");
+		reportChart.setTitle("Roczny");
+		reportChart.getData().add(seriesChartData);
+
+	}
+
+	/*
+	 *
+	 * HANDLE ACTION OF BUTTON
+	 *
+	 * */
+
+	@FXML public void changeChartType(ActionEvent event) {
+
+		System.out.println("Changed chart type: "+chartTypeComboBox.getSelectionModel().getSelectedItem());
+
+		reportChart.getData().clear();
+
 		dailyChartTypeBox.setVisible(false);
 		weeklyChartTypeBox.setVisible(false);
 		monthlyChartTypeBox.setVisible(false);
 		yearlyChartTypeBox.setVisible(false);
-		
+
 		switch(chartTypeComboBox.getSelectionModel().getSelectedIndex()){
 			case 0:
 				dailyChartTypeBox.setVisible(true);
@@ -94,84 +166,11 @@ public class ExpenseReportChart implements Initializable {
 			case 3:
 				yearlyChartTypeBox.setVisible(true);
 				yearlyChartType(today);
-				break;			
+				break;
 		}
 
 	}
 
-	public void dailyChartType(LocalDate date){
-		
-		choosenDayForDailyChart.setValue(date);//FIXME IT CALL dailyChartType TWICE WHEN IT CALL FIRST TIME
-		
-		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
-		
-		reportChart.getData().clear();
-		
-		for(Expense data: main.getDatabase().selectExpensesByDate(date.toString())){
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(data.getName()+"\n( "+data.getQuantity()+" szt. po " + data.getPrice() + " zl. )", data.getPrice()*data.getQuantity()));
-		}
-		
-		seriesChartData.setName(date.toString() + ", " + date.getDayOfWeek().name().toLowerCase());
-		reportChart.setTitle("Dzienny, Suma " + main.getDatabase().selectExpensesSumByDate(date.toString()) + " zl. ");
-		reportChart.getData().add(seriesChartData);
-	}
-	
-	public void weeklyChartType(LocalDate startDate) {
-		
-		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
-		
-		currentlySetDate = startDate;
-		
-		for(int i = 0; i < countOfLastWeekDays; i++){
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfWeek().name(), main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
-			currentlySetDate = currentlySetDate.minusDays(1);	
-		}
-		
-		seriesChartData.setName(startDate + " - " + currentlySetDate.plusDays(1));
-		reportChart.setTitle("Tygodniowy");
-		reportChart.getData().add(seriesChartData);
-		
-	}	
-	
-	public void monthlyChartType(LocalDate startDate) {
-		
-		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
-		
-		currentlySetDate = startDate.minusDays(startDate.getDayOfMonth() - 1);
-		
-		for(int i = 1; i <= startDate.getMonth().maxLength(); i++){			
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfMonth() + ", ", main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
-			currentlySetDate = currentlySetDate.plusDays(1);
-		}
-		seriesChartData.setName(startDate.getMonth().name());
-		reportChart.setTitle("Miesieczny");
-		reportChart.getData().add(seriesChartData);
-		
-	}
-	
-	public void yearlyChartType(LocalDate startDate) {
-		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
-		
-		currentlySetDate = startDate.minusDays(startDate.getDayOfYear() - 1);
-		
-		for(int i = 1; i <= 12; i++){
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getMonth().toString(), 
-				main.getDatabase().selectExpensesSumByMonth(currentlySetDate)));
-			currentlySetDate = currentlySetDate.plusMonths(1);
-		}
-		
-		seriesChartData.setName(startDate.getYear()+"");
-		reportChart.setTitle("Roczny");
-		reportChart.getData().add(seriesChartData);
-		
-	}
-	
-	/* 
-	 * 
-	 * HANDLE ACTION OF BUTTON
-	 * 
-	 * */
-	
 	@FXML public void handleDayChangedForDailyChart() {
 		currentlySetDate = choosenDayForDailyChart.getValue();
 		dailyChartType(currentlySetDate);
@@ -209,5 +208,14 @@ public class ExpenseReportChart implements Initializable {
 		reportChart.getData().clear();
 		monthlyChartType(today);
 	}
-	
+
+	@FXML public void handleShowLastYear() {
+		currentlySetDate = currentlySetDate.minusYears(2);
+		yearlyChartType(currentlySetDate);
+	}
+
+	@FXML public void handleShowCurrentYear() {
+		reportChart.getData().clear();
+		yearlyChartType(today);
+	}
 }

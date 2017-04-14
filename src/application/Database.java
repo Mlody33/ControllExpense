@@ -39,11 +39,24 @@ public class Database {
 			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 	}
-	
+
 	public ObservableList<Expense> selectExpensesData(){
 		ObservableList<Expense> expenseData = FXCollections.observableArrayList();
 		try{
 			ResultSet myRs = statement.executeQuery("SELECT * FROM expense");
+			while(myRs.next()){
+				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
+			}
+		}catch(SQLException e){
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
+		}
+		return expenseData;
+	}
+
+	public ObservableList<Expense> selectFilteredExpensesData(String value){
+		ObservableList<Expense> expenseData = FXCollections.observableArrayList();
+		try{
+			ResultSet myRs = statement.executeQuery("SELECT * FROM expense WHERE name = '"+value+"' OR category = '"+value+"' ");
 			while(myRs.next()){
 				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
 			}
@@ -93,21 +106,30 @@ public class Database {
 		return sum;
 	}
 
+	public ObservableList<String> selectExpensesName(){
+		ObservableList<String> names = FXCollections.observableArrayList();
+		try{
+			ResultSet myRs = statement.executeQuery("SELECT name FROM expense GROUP BY name");
+			while(myRs.next()){
+				names.add(myRs.getString("name"));
+			}
+		}catch(SQLException e){
+			System.out.println("Error in method: " + Thread.currentThread().getStackTrace());
+		}
+		return names;
+	}
+
 	public ObservableList<String> selectExpensesCategory(){
 		ObservableList<String> category = FXCollections.observableArrayList();
 		try{
 			ResultSet myRs = statement.executeQuery("SELECT category FROM expense GROUP BY category");
-				while(myRs.next()){
-					category.add(myRs.getString("category"));
-				}
+			while(myRs.next()){
+				category.add(myRs.getString("category"));
+			}
 		}catch(SQLException e){
 			System.out.println("Error in method: " + Thread.currentThread().getStackTrace());
 		}
 		return category;
-	}
-	
-	public void testAccess(){
-		System.out.println("Access test ok");
 	}
 	
 	public void insertExpense(Expense expense){

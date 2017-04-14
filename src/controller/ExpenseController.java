@@ -5,20 +5,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import model.Expense;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 
 public class ExpenseController implements Initializable{
-	
+
 	@FXML TableView<Expense> expensesTable;
 	@FXML TableColumn<Expense, String> nameColumn;
 	@FXML TableColumn<Expense, String> categoryColumn;
@@ -26,14 +24,11 @@ public class ExpenseController implements Initializable{
 	@FXML TableColumn<Expense, Integer> quantityColumn;
 	@FXML TableColumn<Expense, Boolean> paidByCreditCardColumn;
 	@FXML TableColumn<Expense, LocalDate> dateColumn;
-	
-	@FXML ComboBox<Integer> cbChoseDayToSort;
-	@FXML ComboBox<String> cbChoseMonthToSort;
-	
-	@FXML Button newExpenseButton;
-	@FXML Button editExpenseButton;
-	@FXML Button removeExpenseButton;
-	
+
+	@FXML ToggleButton filterName, filterCategory;
+	@FXML ComboBox<String> cbFilterOption;
+	@FXML Button newExpenseButton, editExpenseButton, removeExpenseButton;
+
 	private Main main;
 	
 	@Override
@@ -108,6 +103,30 @@ public class ExpenseController implements Initializable{
 	@FXML public void handleSelectedExpense() {
 		main.setSelectedExpense(expensesTable.getSelectionModel().getSelectedItem());
 	}
-	
 
+
+	@FXML public void handleFilterName() {
+		if(filterName.isSelected()) {
+			cbFilterOption.setDisable(false);
+			cbFilterOption.setItems(main.getDatabase().selectExpensesName());
+		} else {
+			expensesTable.setItems(main.getExpensesData());
+			cbFilterOption.setDisable(true);
+		}
+
+	}
+
+	@FXML public void handleFilterCategory() {
+		if (filterCategory.isSelected()) {
+			cbFilterOption.setDisable(false);
+			cbFilterOption.setItems(main.getDatabase().selectExpensesCategory());
+		} else {
+			expensesTable.setItems(main.getExpensesData());
+			cbFilterOption.setDisable(true);
+		}
+	}
+
+	@FXML public void handleFilterOption() {
+		expensesTable.setItems(main.getDatabase().selectFilteredExpensesData(cbFilterOption.getSelectionModel().getSelectedItem()));
+	}
 }

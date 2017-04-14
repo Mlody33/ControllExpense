@@ -6,12 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseController">
+<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseController">
    <children>
       <BorderPane layoutX="210.0" layoutY="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -32,29 +34,44 @@
          <top>
             <HBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox>
+                  <HBox spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="180.0" text="Wybierz dzień do wyświetlenia" />
-                        <ComboBox fx:id="cbChoseDayToSort" prefHeight="25.0" prefWidth="180.0" promptText="Zmien dzien" />
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="170.0" text="Filtruj" />
+                              <HBox>
+                                 <children>
+                                    <ToggleButton fx:id="filterName" mnemonicParsing="false" onMouseClicked="#handleFilterName" prefWidth="85.0" text="Nazwa">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="filter" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="filterCategory" mnemonicParsing="false" onMouseClicked="#handleFilterCategory" prefWidth="85.0" text="Kategoria" toggleGroup="$filter" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="120.0" text="Opcje" />
+                              <ComboBox fx:id="cbFilterOption" onAction="#handleFilterOption" prefHeight="25.0" prefWidth="120.0" promptText="Opcja" disable="true"/>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="180.0" text="Wybierz miesiąc do wyświetlenia" />
-                        <ComboBox fx:id="cbChoseMonthToSort" prefHeight="25.0" prefWidth="180.0" promptText="Zmien miesiąc" />
-                     </children>
-                  </VBox>
-                  <HBox prefHeight="59.0" prefWidth="23.0" HBox.hgrow="ALWAYS" />
-                  <HBox prefHeight="59.0" prefWidth="265.0" spacing="10.0">
-                     <children>
-                        <Button fx:id="newExpenseButton" mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Nowy" />
-                        <Button fx:id="editExpenseButton" mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edytuj" />
-                        <Button fx:id="removeExpenseButton" mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Usun" />
-                     </children>
-                     <padding>
-                        <Insets top="25.0" />
-                     </padding>
                   </HBox>
+                  <HBox prefHeight="59.0" prefWidth="23.0" HBox.hgrow="ALWAYS" />
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="Wydatek" />
+                        <HBox spacing="5.0">
+                           <children>
+                              <Button fx:id="newExpenseButton" mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Nowy" />
+                              <Button fx:id="editExpenseButton" mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edytuj" />
+                              <Button fx:id="removeExpenseButton" mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Usun" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="3.0" />

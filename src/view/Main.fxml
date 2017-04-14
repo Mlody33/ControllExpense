@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="false" text="Plik">
+              <items>
+                  <MenuItem fx:id="refreshDataMenuItem" mnemonicParsing="false" onAction="#menuHandleRefreshData" text="Odśwież dane" />
+                <MenuItem fx:id="closeAppMenuItem" mnemonicParsing="false" onAction="#menuHandleExit" text="Wyjdz" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Wydatek">
+              <items>
+                <MenuItem fx:id="addExpenseMenuItem" mnemonicParsing="false" onAction="#menuHandleAddExpense" text="Dodaj nowy" />
+                  <MenuItem fx:id="editExpenseMenuItem" mnemonicParsing="false" onAction="#menuHandleEditExpense" text="Edytuj zaznaczony" />
+                  <MenuItem fx:id="deleteExpenseMenuItem" mnemonicParsing="false" onAction="#menuHandleRemoveExpense" text="Usuń zaznaczony" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Raporty">
+              <items>
+                  <MenuItem fx:id="showSheetReportMenuItem" mnemonicParsing="false" onAction="#menuHandleShowSheetReport" text="Arkusze" />
+                <MenuItem fx:id="showChartReportMenuItem" mnemonicParsing="false" onAction="#menuHandleShowCharReport" text="Wykresy" />
+              </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+   </bottom>
+</BorderPane>

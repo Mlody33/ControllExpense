@@ -140,12 +140,21 @@ public class Database {
 
 		}
 	}
-	
+
 	public void updateExpense(Expense expense){
 		try{
 			statement.executeUpdate("UPDATE expense SET name='"+expense.getName()+"', category='"+expense.getCategory()+"', price='"+expense.getPrice()+"', quantity='"+expense.getQuantity()+"', isPaidByCreditCard='"+expense.isPaidByCreditCardToInt()+"', date='"+expense.getDate()+"' WHERE id = '"+expense.getId()+"'");
 		}catch(SQLException e){
 			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
+		}
+	}
+
+	public void updateCategory(String newName, String oldName) {
+		try{
+			statement.executeUpdate("UPDATE expense SET category='"+newName+"' WHERE category='"+oldName+"' ");
+		}catch(SQLException e){
+			System.err.println("Error in method: " + Thread.currentThread().getStackTrace());
+
 		}
 	}
 	

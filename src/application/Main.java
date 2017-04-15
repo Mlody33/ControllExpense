@@ -2,11 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import controller.*;
 import model.Expense;
-import controller.AddExpenseController;
-import controller.ExpenseController;
-import controller.ExpenseReportChart;
-import controller.MainController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,32 +100,57 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean showAddExpenseDialog(Expense expense) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/AddExpense.fxml"));
 			AnchorPane addExpense = (AnchorPane)loader.load();
-			
+
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Add new expense");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
-			
+
 			Scene scene = new Scene(addExpense);
 			dialogStage.setScene(scene);
-			
+
 			AddExpenseController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setMain(this);
 			controller.setExpense(expense);
 
 			dialogStage.showAndWait();
-			
+
 			return controller.isAcceptedNewExpense();
 		}catch(IOException e){
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	public void showEditCategoryNameDialog() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("../view/EditCategories.fxml"));
+			AnchorPane editCategory = (AnchorPane)loader.load();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit categories");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+
+			Scene scene = new Scene(editCategory);
+			dialogStage.setScene(scene);
+
+			EditCategoriesController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMain(this);
+			controller.setCategoryList(db.selectExpensesCategory());
+
+			dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 
 public class MainController implements Initializable{
 	
@@ -33,15 +32,16 @@ public class MainController implements Initializable{
 		this.main = main;
 	}
 	
-	@FXML public void menuHandleRefreshData(ActionEvent event) {
+	@FXML public void menuHandleRefreshData() {
 		main.getExpensesData().clear();
 		main.getExpensesData().addAll(main.getDatabase().selectExpensesData());
 	}
 
-	@FXML public void menuHandleExit(ActionEvent event) {
+	@FXML public void menuHandleExit() {
 		Platform.exit();
 	}
 
+	@FXML public void menuHandleChangeCategories() { main.showEditCategoryNameDialog(); }
 
 	@FXML public void menuHandleAddExpense() {
 		main.getExpenseController().handleAddExpense();

@@ -38,12 +38,12 @@
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="acceptChangeButton" mnemonicParsing="false" onAction="#handleAcceptChange" prefHeight="35.0" prefWidth="120.0" text="Akceptuj">
+            <Button mnemonicParsing="false" onAction="#handleAcceptChange" prefHeight="35.0" prefWidth="120.0" text="Akceptuj">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelChangeButton" mnemonicParsing="false" onAction="#handleCancelChange" prefHeight="35.0" prefWidth="120.0" text="Anuluj">
+            <Button mnemonicParsing="false" onAction="#handleCancelChange" prefHeight="35.0" prefWidth="120.0" text="Anuluj">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

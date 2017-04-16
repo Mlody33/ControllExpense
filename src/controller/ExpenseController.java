@@ -4,30 +4,27 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import application.Main;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.Expense;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Expense;
+import application.Main;
 
 public class ExpenseController implements Initializable{
 
-	@FXML TableView<Expense> expensesTable;
-	@FXML TableColumn<Expense, String> nameColumn;
-	@FXML TableColumn<Expense, String> categoryColumn;
-	@FXML TableColumn<Expense, Double> priceColumn;
-	@FXML TableColumn<Expense, Integer> quantityColumn;
-	@FXML TableColumn<Expense, Boolean> paidByCreditCardColumn;
-	@FXML TableColumn<Expense, LocalDate> dateColumn;
+	@FXML private TableView<Expense> expensesTable;
+	@FXML private TableColumn<Expense, String> nameColumn;
+	@FXML private TableColumn<Expense, String> categoryColumn;
+	@FXML private TableColumn<Expense, Double> priceColumn;
+	@FXML private TableColumn<Expense, Integer> quantityColumn;
+	@FXML private TableColumn<Expense, Boolean> paidByCreditCardColumn;
+	@FXML private TableColumn<Expense, LocalDate> dateColumn;
 
-	@FXML ToggleButton filterName, filterCategory;
-	@FXML ComboBox<String> cbFilterOption;
-	@FXML Button newExpenseButton, editExpenseButton, removeExpenseButton;
+	@FXML private ToggleButton filterName, filterCategory;
+	@FXML private ComboBox<String> cbFilterOption;
+	@FXML private Button newExpenseButton, editExpenseButton, removeExpenseButton;
 
 	private Main main;
 	

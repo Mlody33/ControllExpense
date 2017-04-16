@@ -18,8 +18,7 @@ public class Expense {
 	private SimpleIntegerProperty quantity;
 	private SimpleBooleanProperty paidByCreditCard;
 	private ObjectProperty<LocalDate> date;
-	
-	
+
 	public Expense() {
 		this.name = new SimpleStringProperty(null);
 		this.category = new SimpleStringProperty(null);
@@ -39,7 +38,7 @@ public class Expense {
 		this.date = new SimpleObjectProperty<LocalDate>(date);
 	}
 
-	public int getId(){ return id; };
+	public int getId(){ return id; }
 	
 	public String getName() { return name.get(); }
 	public void setName(String name) { this.name = new SimpleStringProperty(name); }

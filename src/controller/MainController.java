@@ -33,12 +33,12 @@ public class MainController implements Initializable{
 	}
 	
 	@FXML public void menuHandleRefreshData() {
-		main.getExpensesData().clear();
-		main.getExpensesData().addAll(main.getDatabase().selectExpensesData());
+	    main.refreshDataTable();
 	}
 
 	@FXML public void menuHandleExit() {
-		Platform.exit();
+        main.getDatabase().closeConnection();
+        Platform.exit();
 	}
 
 	@FXML public void menuHandleChangeCategories() { main.showEditCategoryNameDialog(); }

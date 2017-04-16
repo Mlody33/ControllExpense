@@ -24,7 +24,7 @@ public class Main extends Application {
 	private ObservableList<Expense> expenseData = FXCollections.observableArrayList();
 	private Database db = new Database();
 	private Expense selectedExpense;
-	private ExpenseController expenseController;//FIXME NOT SAFE???
+	private ExpenseController expenseController;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -39,14 +39,13 @@ public class Main extends Application {
 		
 		initMainView();
 		showExpenseOverview();
-//		showAddExpenseDialog(new Expense());
 	}
 	
-	public void initMainView() {
+	private void initMainView() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/Main.fxml"));
-			rootLayout = (BorderPane)loader.load();
+			rootLayout = loader.load();
 			
 			MainController controller = loader.getController();
 			controller.setMain(this);
@@ -61,11 +60,11 @@ public class Main extends Application {
 		}
 	}
 	
-	public void showExpenseOverview() {
+	private void showExpenseOverview() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/ExpenseOverview.fxml"));
-			AnchorPane expenseOverview = (AnchorPane)loader.load();
+			AnchorPane expenseOverview = loader.load();
 			
 			rootLayout.setCenter(expenseOverview);
 			
@@ -81,7 +80,7 @@ public class Main extends Application {
 		try{			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/ExpenseChart.fxml"));
-			AnchorPane expenseChart = (AnchorPane)loader.load();
+			AnchorPane expenseChart = loader.load();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Expense Chart");
@@ -105,7 +104,7 @@ public class Main extends Application {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/AddExpense.fxml"));
-			AnchorPane addExpense = (AnchorPane)loader.load();
+			AnchorPane addExpense = loader.load();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Add new expense");
@@ -133,7 +132,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/EditCategories.fxml"));
-			AnchorPane editCategory = (AnchorPane)loader.load();
+			AnchorPane editCategory = loader.load();
 
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Edit categories");
@@ -154,16 +153,40 @@ public class Main extends Application {
 		}
 	}
 
-	public ObservableList<Expense> getExpensesData() { System.out.println("[G]expenseData"); return expenseData; }
+	public void refreshDataTable(){
+        expenseData.clear();
+        expenseData.addAll(db.selectExpensesData());
+        selectedExpense = null;
+	}
+
+	public ObservableList<Expense> getExpensesData() {
+	    System.out.println("[G]expenseData");
+	    return expenseData;
+	}
 	
-	public Database getDatabase(){ System.out.println("[G]db"); return db; }
+	public Database getDatabase() {
+	    System.out.println("[G]db");
+	    return db;
+	}
 	
-	public Expense getSelectedExpense(){ System.out.println("[G]selectedExpense"); return selectedExpense; }
+	public Expense getSelectedExpense() {
+	    System.out.println("[G]selectedExpense");
+	    return selectedExpense;
+	}
 	
-	public void setSelectedExpense(Expense expense){ System.out.println("[S]selectedExpense"); this.selectedExpense = expense; }
+	public void setSelectedExpense(Expense expense) {
+	    System.out.println("[S]selectedExpense");
+	    this.selectedExpense = expense;
+	}
 	
-	public Window getPrimaryStage() { System.out.println("[G]expense"); return primaryStage; }
+	public Window getPrimaryStage() {
+	    System.out.println("[G]expense");
+	    return primaryStage;
+	}
 	
-	public ExpenseController getExpenseController(){ System.out.println("[G]ExpenseController"); return expenseController; }
+	public ExpenseController getExpenseController() {
+	    System.out.println("[G]ExpenseController");
+	    return expenseController;
+	}
 	
 }

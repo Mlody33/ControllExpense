@@ -21,24 +21,24 @@ import javafx.scene.layout.VBox;
 
 public class ExpenseReportChart implements Initializable {
 
-	@FXML AreaChart<String, Number> reportChart;
-	@FXML ComboBox<String> chartTypeComboBox;
+	@FXML private AreaChart<String, Number> reportChart;
+	@FXML private ComboBox<String> chartTypeComboBox;
 	
-	@FXML VBox dailyChartTypeBox;
-	@FXML VBox weeklyChartTypeBox;
-	@FXML VBox monthlyChartTypeBox;
-	@FXML VBox yearlyChartTypeBox;
+	@FXML private VBox dailyChartTypeBox;
+	@FXML private VBox weeklyChartTypeBox;
+	@FXML private VBox monthlyChartTypeBox;
+	@FXML private VBox yearlyChartTypeBox;
 	
-	@FXML DatePicker choosenDayForDailyChart;
-	@FXML Button showToday;
-	@FXML Button showNextDay;
-	@FXML Button showPreviusDay;
+	@FXML private DatePicker choosenDayForDailyChart;
+	@FXML private Button showToday;
+	@FXML private Button showNextDay;
+	@FXML private Button showPreviusDay;
 	
-	@FXML Button showNextWeekButton;
-	@FXML Button showOnlyCurrentWeekButton;
+	@FXML private Button showNextWeekButton;
+	@FXML private Button showOnlyCurrentWeekButton;
 	
-	@FXML Button showPreviusMonthButton;
-	@FXML Button showOnlyCurrentMonth;
+	@FXML private Button showPreviusMonthButton;
+	@FXML private Button showOnlyCurrentMonth;
 	
 	private static final int countOfLastWeekDays = 7;
 	
@@ -66,7 +66,7 @@ public class ExpenseReportChart implements Initializable {
 		chartTypeComboBox.getSelectionModel().selectFirst();
 	}
 
-	public void dailyChartType(LocalDate date){
+	private void dailyChartType(LocalDate date){
 		choosenDayForDailyChart.setValue(date);//FIXME IT CALL dailyChartType TWICE WHEN IT CALL FIRST TIME
 
 		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
@@ -83,7 +83,7 @@ public class ExpenseReportChart implements Initializable {
 			reportChart.setTitle("Brak danych w wybranym dniu");
 	}
 
-	public void weeklyChartType(LocalDate startDate) {
+	private void weeklyChartType(LocalDate startDate) {
 
 		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
 
@@ -100,7 +100,7 @@ public class ExpenseReportChart implements Initializable {
 
 	}
 
-	public void monthlyChartType(LocalDate startDate) {
+	private void monthlyChartType(LocalDate startDate) {
 
 		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
 
@@ -116,7 +116,7 @@ public class ExpenseReportChart implements Initializable {
 
 	}
 
-	public void yearlyChartType(LocalDate startDate) {
+	private void yearlyChartType(LocalDate startDate) {
 		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
 
 		currentlySetDate = startDate.minusDays(startDate.getDayOfYear() - 1);
@@ -134,12 +134,10 @@ public class ExpenseReportChart implements Initializable {
 	}
 
 	/*
-	 *
 	 * HANDLE ACTION OF BUTTON
-	 *
-	 * */
+	*/
 
-	@FXML public void changeChartType(ActionEvent event) {
+	@FXML public void changeChartType() {
 
 		System.out.println("Changed chart type: "+chartTypeComboBox.getSelectionModel().getSelectedItem());
 

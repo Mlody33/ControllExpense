@@ -19,16 +19,16 @@ import javafx.scene.control.Alert.AlertType;
 
 public class AddExpenseController implements Initializable {
 
-	@FXML TextField newName;
-	@FXML ComboBox<String> newCategory;
-	@FXML TextField newPrice;
-	@FXML Spinner newQuantity;
-	@FXML CheckBox isNewExpenseIsPaidByCreditCard;
-	@FXML Tooltip categoryToolTip;
-	@FXML DatePicker newExpenseDate;
+	@FXML private TextField newName;
+	@FXML private ComboBox<String> newCategory;
+	@FXML private TextField newPrice;
+	@FXML private Spinner newQuantity;
+	@FXML private CheckBox isNewExpenseIsPaidByCreditCard;
+	@FXML private Tooltip categoryToolTip;
+	@FXML private DatePicker newExpenseDate;
 
-	@FXML Button addExpenseButton;
-	@FXML Button cancelExpenseButton;
+	@FXML private Button addExpenseButton;
+	@FXML private Button cancelExpenseButton;
 
 	private Stage dialogStage;
 	private Main main;
@@ -106,7 +106,7 @@ public class AddExpenseController implements Initializable {
 		}
 	}
 
-	public void findInCategory(String value){
+	private void findInCategory(String value){
 		if(value.isEmpty())
 			matchedCategory.clear();
 		for(String category: categoryList){

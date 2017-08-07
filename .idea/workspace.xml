@@ -2,6 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ed285c3-fd4e-46a4-8f9a-9e70ffd4acad" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/application/Database.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/application/Main.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/controller/AddExpenseController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/controller/EditCategoriesController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/controller/ExpenseOverview.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/controller/ExpenseReportChart.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/controller/MainController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/model/Expense.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/application/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/view/AddExpense.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/view/EditCategories.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/view/ExpenseChart.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/view/ExpenseOverview.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/ControlExpense/view/Main.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/application/Database.java" afterPath="$PROJECT_DIR$/src/application/Database.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/application/Main.java" afterPath="$PROJECT_DIR$/src/application/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/ExpenseReportChart.java" afterPath="$PROJECT_DIR$/src/controller/ExpenseReportChart.java" />

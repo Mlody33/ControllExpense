@@ -21,8 +21,8 @@ public class Main extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
-	private Logger log = Logger.getLogger("Main " + this.getClass().getName());
-	private ObservableList<Expense> expenseData = FXCollections.observableArrayList();
+	private Logger log = Logger.getLogger(this.getClass().getName());
+	private ObservableList<Expense> expenses = FXCollections.observableArrayList();
 	private Database db = new Database();
 	private Expense selectedExpense;
 	private ExpensesOverview expenseOverview;
@@ -36,8 +36,8 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 		
 		db.connect();
-		expenseData.addAll(db.getExpenses());
-		
+		expenses.addAll(db.getExpenses());
+
 		initMainView();
 		showExpenseOverview();
 	}
@@ -54,7 +54,7 @@ public class Main extends Application {
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add(Main.class.getResource("../application/style.css").toExternalForm());
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Control your expense");
+			primaryStage.setTitle(AppState.APP_TITLE.get());
 			primaryStage.show();
 		}catch(IOException e){
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class Main extends Application {
 		try{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("../view/ExpensesOverview.fxml"));
-			AnchorPane expenseOverview = loader.load();
+			AnchorPane expenseOverview = (AnchorPane) loader.load();
 			
 			rootLayout.setCenter(expenseOverview);
 			
@@ -83,14 +83,14 @@ public class Main extends Application {
 			AnchorPane expenseChart = loader.load();
 			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Expense Chart");
+			dialogStage.setTitle(AppState.EXPENSE_CHART_TITLE.get());
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			
 			Scene scene = new Scene(expenseChart);
 			dialogStage.setScene(scene);
 			
-			ExpenseReportChart controller = loader.getController();
+			ExpensesChart controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setMain(this);
 			
@@ -107,7 +107,7 @@ public class Main extends Application {
 			AnchorPane addExpense = loader.load();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Add new expense");
+			dialogStage.setTitle(AppState.ADD_EXPENSE_TITLE.get());
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 
@@ -135,7 +135,7 @@ public class Main extends Application {
 			AnchorPane editCategory = loader.load();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Edit categories");
+			dialogStage.setTitle(AppState.EDIT_CATEGORY_NAME.get());
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 
@@ -154,14 +154,14 @@ public class Main extends Application {
 	}
 
 	public void refreshDataInTable(){
-        expenseData.clear();
-        expenseData.addAll(db.getExpenses());
+        expenses.clear();
+        expenses.addAll(db.getExpenses());
         selectedExpense = null;
 	}
 
 	public ObservableList<Expense> getExpenses() {
-	    log.info("[G]expenseData");
-	    return expenseData;
+	    log.info("[G]expenses");
+	    return expenses;
 	}
 	
 	public Database getDatabase() {

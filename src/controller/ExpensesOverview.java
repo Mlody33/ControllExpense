@@ -4,6 +4,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import application.AppState;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -62,9 +64,9 @@ public class ExpensesOverview implements Initializable{
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(main.getPrimaryStage());
-			alert.setTitle("Nie zaznaczono wydatku");
+			alert.setTitle(AppState.EXPENSE_NOT_SELECTED.get());
 			alert.setHeaderText(null);
-			alert.setContentText("Najpierw zaznacz istniejacy wydatek w tabeli!");
+			alert.setContentText(AppState.SELECT_EXPENSE.get());
 			alert.showAndWait();
 		}
 	}
@@ -74,24 +76,21 @@ public class ExpensesOverview implements Initializable{
 		if(selectedExpense != null){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.initOwner(main.getPrimaryStage());
-			alert.setTitle("Czy chcesz usunac?");
+			alert.setTitle(AppState.CONFIRM_DELETE_TITLE.get());
 			alert.setHeaderText(null);
-			alert.setContentText("Czy chcesz usunac zaznaczony wydatek?");
+			alert.setContentText(AppState.CONFIRM_DELETE.get());
 			
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK){
-				System.out.println("Database[ID]: "+selectedExpense.getId());
-				System.out.println("Table[ID]: "+expensesTable.getSelectionModel().getSelectedIndex());
-				
 				main.getExpenses().remove(expensesTable.getSelectionModel().getSelectedIndex());
 				main.getDatabase().removeExpense(selectedExpense);
 			}
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.initOwner(main.getPrimaryStage());
-			alert.setTitle("Nie zaznaczono wydatku");
+			alert.setTitle(AppState.EXPENSE_NOT_SELECTED.get());
 			alert.setHeaderText(null);
-			alert.setContentText("Najpierw zaznacz istniejacy wydatek w tabeli!");
+			alert.setContentText(AppState.SELECT_EXPENSE.get());
 			alert.showAndWait();
 		}
 	}

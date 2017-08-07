@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import application.AppState;
 import application.Main;
 import javafx.fxml.Initializable;
 import javafx.collections.FXCollections;
@@ -26,9 +27,6 @@ public class AddExpense implements Initializable {
 	@FXML private CheckBox isNewExpenseIsPaidByCreditCard;
 	@FXML private Tooltip categoryToolTip;
 	@FXML private DatePicker newExpenseDate;
-
-	@FXML private Button addExpenseButton;
-	@FXML private Button cancelExpenseButton;
 
 	private Stage dialogStage;
 	private Main main;
@@ -61,7 +59,7 @@ public class AddExpense implements Initializable {
 		else
 			newPrice.setText(Double.toString(expense.getPrice()));
 		if(expense.getQuantity() == 0)
-			newQuantity.getEditor().setText("1");
+			newQuantity.getEditor().setText(AppState.DEFAULT_QUANTITY.get());
 		else
 			newQuantity.getEditor().setText(Integer.toString(expense.getQuantity()));
 		isNewExpenseIsPaidByCreditCard.setSelected(expense.isPaidByCreditCard());
@@ -121,9 +119,9 @@ public class AddExpense implements Initializable {
 		if(newName.getText() == null | newCategory.getEditor().getText() == null | newPrice.getText().isEmpty() | newQuantity.getEditor().getText().isEmpty() | newExpenseDate.getValue() == null){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
-			alert.setTitle("Brak danych");
+			alert.setTitle(AppState.NO_DATA_TITLE.get());
 			alert.setHeaderText(null);
-			alert.setContentText("Wymagane sa wszystkie pola do utworzenia nowego wydatku!");
+			alert.setContentText(AppState.TYPE_ALL_DATA_ADD.get());
 			alert.showAndWait();
 		} else {
 			expense.setName(newName.getText());
@@ -132,10 +130,7 @@ public class AddExpense implements Initializable {
 			expense.setQuantity(Integer.parseInt(newQuantity.getEditor().getText()));
 			expense.setPaidByCreditCard(isNewExpenseIsPaidByCreditCard.isSelected());
 			expense.setDate(newExpenseDate.getValue());
-
 			isAccepted = true;
-			System.out.println(expense.toString());
-
 			dialogStage.close();
 		}
 	}

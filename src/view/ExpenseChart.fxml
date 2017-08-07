@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseReportChart">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpensesChart">
    <children>
       <BorderPane layoutX="210.0" layoutY="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -43,26 +43,26 @@
                      <children>
                         <VBox fx:id="dailyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <DatePicker fx:id="choosenDayForDailyChart" onAction="#handleDayChangedForDailyChart" prefWidth="160.0" />
+                              <DatePicker fx:id="chosenDayForDailyChart" onAction="#handleDayChangedForDailyChart" prefWidth="160.0" />
                               <HBox alignment="CENTER" spacing="10.0">
                                  <children>
-                                    <Button fx:id="showPreviusDay" mnemonicParsing="false" onAction="#handleSetPreviusDay" prefWidth="75.0" text="Poprzedni" />
-                                    <Button fx:id="showNextDay" mnemonicParsing="false" onAction="#handleSetNextDay" prefWidth="75.0" text="Następny" />
+                                    <Button mnemonicParsing="false" onAction="#handleSetPreviousDay" prefWidth="75.0" text="Poprzedni" />
+                                    <Button mnemonicParsing="false" onAction="#handleSetNextDay" prefWidth="75.0" text="Następny" />
                                  </children>
                               </HBox>
-                              <Button fx:id="showToday" mnemonicParsing="false" onAction="#handleSetDayToToday" prefWidth="160.0" text="Dzisiaj" />
+                              <Button mnemonicParsing="false" onAction="#handleSetDayToToday" prefWidth="160.0" text="Dzisiaj" />
                            </children>
                         </VBox>
                         <VBox fx:id="weeklyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button fx:id="showNextWeekButton" mnemonicParsing="false" onAction="#handleShowNextWeek" prefWidth="160.0" text="Dodaj kolejny tydzień" />
-                              <Button fx:id="showOnlyCurrentWeekButton" mnemonicParsing="false" onAction="#handleShowCurrentWeek" prefWidth="160.0" text="Pokaz bieżący" />
+                              <Button mnemonicParsing="false" onAction="#handleShowNextWeek" prefWidth="160.0" text="Dodaj kolejny tydzień" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentWeek" prefWidth="160.0" text="Pokaz bieżący" />
                            </children>
                         </VBox>
                         <VBox fx:id="monthlyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button fx:id="showPreviusMonthButton" mnemonicParsing="false" onAction="#handleShowPreviusMonth" prefWidth="160.0" text="Pokaz poprzedni miesiąc" />
-                              <Button fx:id="showOnlyCurrentMonth" mnemonicParsing="false" onAction="#handleShowCurrentMonth" prefWidth="160.0" text="Pokaz aktualny miesiąc" />
+                              <Button mnemonicParsing="false" onAction="#handleShowPreviusMonth" prefWidth="160.0" text="Pokaz poprzedni miesiąc" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentMonth" prefWidth="160.0" text="Pokaz aktualny miesiąc" />
                            </children></VBox>
                         <VBox fx:id="yearlyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>

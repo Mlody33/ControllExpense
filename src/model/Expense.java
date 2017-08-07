@@ -38,19 +38,41 @@ public class Expense {
 		this.date = new SimpleObjectProperty<LocalDate>(date);
 	}
 
-	public int getId(){ return id; }
+	public int getId(){
+		return id;
+	}
 	
-	public String getName() { return name.get(); }
-	public void setName(String name) { this.name = new SimpleStringProperty(name); }
+	public String getName() {
+		return name.get();
+	}
+
+	public void setName(String name) {
+		this.name = new SimpleStringProperty(name);
+	}
 	
-	public String getCategory() { return category.get(); }
-	public void setCategory(String category) { this.category = new SimpleStringProperty(category); }
+	public String getCategory() {
+		return category.get();
+	}
+
+	public void setCategory(String category) {
+		this.category = new SimpleStringProperty(category);
+	}
 	
-	public double getPrice() { return price.get(); }
-	public void setPrice(double price) { this.price = new SimpleDoubleProperty(price); }
+	public double getPrice() {
+		return price.get();
+	}
+
+	public void setPrice(double price) {
+		this.price = new SimpleDoubleProperty(price);
+	}
 	
-	public int getQuantity() { return quantity.get(); }
-	public void setQuantity(int quantity) { this.quantity = new SimpleIntegerProperty(quantity); }
+	public int getQuantity() {
+		return quantity.get();
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = new SimpleIntegerProperty(quantity);
+	}
 	
 	public int isPaidByCreditCardToInt(){
 		if(paidByCreditCard.get())
@@ -58,11 +80,22 @@ public class Expense {
 		else
 			return 0;
 	}
-	public boolean isPaidByCreditCard() { return paidByCreditCard.get(); }
-	public void setPaidByCreditCard(boolean paidByCreditCard) { this.paidByCreditCard = new SimpleBooleanProperty(paidByCreditCard); }
+
+	public boolean isPaidByCreditCard() {
+		return paidByCreditCard.get();
+	}
+
+	public void setPaidByCreditCard (
+			boolean paidByCreditCard) { this.paidByCreditCard = new SimpleBooleanProperty(paidByCreditCard);
+	}
 	
-	public LocalDate getDate(){ return date.get(); }
-	public void setDate(LocalDate date) { this.date = new SimpleObjectProperty<LocalDate>(date); }
+	public LocalDate getDate() {
+		return date.get();
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = new SimpleObjectProperty<LocalDate>(date);
+	}
 
 	@Override
 	public String toString() {

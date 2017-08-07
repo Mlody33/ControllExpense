@@ -1,5 +1,6 @@
 package controller;
 
+import application.AppState;
 import application.Main;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,9 +39,9 @@ public class EditCategories implements Initializable {
 		if(newCategoryName.getText().isEmpty() || chosenCategoryName.getText().isEmpty()){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.initOwner(dialogStage);
-			alert.setTitle("Brak danych");
+			alert.setTitle(AppState.NO_DATA_TITLE.get());
 			alert.setHeaderText(null);
-			alert.setContentText("Wymagane jest uzupelnienie wszystkich danych!");
+			alert.setContentText(AppState.TYPE_ALL_DATA_EDIT.get());
 			alert.showAndWait();
 		} else {
 			String oldCategoryName = cbCategoryList.getSelectionModel().getSelectedItem();

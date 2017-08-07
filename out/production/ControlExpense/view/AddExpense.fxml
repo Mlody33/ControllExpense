@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddExpenseController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddExpense">
    <children>
       <GridPane hgap="5.0" layoutY="10.0" prefHeight="215.0" prefWidth="400.0" vgap="5.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -53,12 +53,12 @@
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="addExpenseButton" mnemonicParsing="false" onAction="#handleAddExpense" prefHeight="35.0" prefWidth="120.0" text="Akceptuj">
+            <Button mnemonicParsing="false" onAction="#handleAddExpense" prefHeight="35.0" prefWidth="120.0" text="Akceptuj">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelExpenseButton" mnemonicParsing="false" onAction="#handleCancelExpense" prefHeight="35.0" prefWidth="120.0" text="Anuluj">
+            <Button mnemonicParsing="false" onAction="#handleCancelExpense" prefHeight="35.0" prefWidth="120.0" text="Anuluj">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

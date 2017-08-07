@@ -18,20 +18,20 @@ public class Database {
 	private Connection connection;
 	private Statement statement;
 
-	private Logger log = Logger.getLogger("Database " + this.getClass().getName());
-
+	private static final String ERROR_NAME = "Error in method";
+	private Logger log = Logger.getLogger(this.getClass().getName());
 	private static final String URL_DATABASE = "jdbc:mysql://localhost:3306/";
 	private static final String NAME_DATABASE = "controll_expense";
 	private static final String PROPERTIES_DATABASE = "?useUnicode=true&characterEncoding=utf8&autoReconnect=true";
 	private static final String USERNAME_DATABASE = "root";
 	private static final String PASSWORD_DATABASE = "";
-	
+
 	void connect(){
 		try{
 			connection = DriverManager.getConnection(URL_DATABASE+NAME_DATABASE+PROPERTIES_DATABASE, USERNAME_DATABASE, PASSWORD_DATABASE);
 			statement = connection.createStatement();			
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class Database {
 			connection.close();
 			statement.close();
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 	}
 
@@ -52,7 +52,7 @@ public class Database {
 				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
 			}
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return expenseData;
 	}
@@ -65,7 +65,7 @@ public class Database {
 				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
 			}
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return expenseData;
 	}
@@ -78,7 +78,7 @@ public class Database {
 				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
 			}
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return expenseData;
 	}
@@ -90,7 +90,7 @@ public class Database {
 			if(myRs.next())
 				sum = Double.parseDouble(myRs.getString(1));
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return sum;
 	}
@@ -105,7 +105,7 @@ public class Database {
 			if(myRs.next())
 				sum = Double.parseDouble(myRs.getString(1));
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return sum;
 	}
@@ -118,7 +118,7 @@ public class Database {
 				names.add(myRs.getString("name"));
 			}
 		}catch(SQLException e){
-			System.out.println("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return names;
 	}
@@ -131,7 +131,7 @@ public class Database {
 				category.add(myRs.getString("category"));
 			}
 		}catch(SQLException e){
-			System.out.println("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 		return category;
 	}
@@ -140,7 +140,7 @@ public class Database {
 		try{
 			statement.executeUpdate("INSERT INTO expense (name, category, price, quantity, isPaidByCreditCard, date) values ('"+expense.getName()+"', '"+expense.getCategory()+"', '"+expense.getPrice()+"', '"+expense.getQuantity()+"', '"+expense.isPaidByCreditCardToInt()+"', '"+expense.getDate()+"')");
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 
 		}
 	}
@@ -149,7 +149,7 @@ public class Database {
 		try{
 			statement.executeUpdate("UPDATE expense SET name='"+expense.getName()+"', category='"+expense.getCategory()+"', price='"+expense.getPrice()+"', quantity='"+expense.getQuantity()+"', isPaidByCreditCard='"+expense.isPaidByCreditCardToInt()+"', date='"+expense.getDate()+"' WHERE id = '"+expense.getId()+"'");
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 	}
 
@@ -157,7 +157,7 @@ public class Database {
 		try{
 			statement.executeUpdate("UPDATE expense SET category='"+newName+"' WHERE category='"+oldName+"' ");
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 
 		}
 	}
@@ -166,8 +166,8 @@ public class Database {
 		try{
 			statement.executeUpdate("DELETE FROM expense WHERE id = '"+expense.getId()+"'");
 		}catch(SQLException e){
-			log.warning("Error in method: " + Arrays.toString(Thread.currentThread().getStackTrace()));
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 	}
-	
+
 }

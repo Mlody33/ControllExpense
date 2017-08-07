@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpenseOverview">
+<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExpensesOverview">
    <children>
       <BorderPane layoutX="210.0" layoutY="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -54,7 +54,7 @@
                         <VBox spacing="5.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="25.0" prefWidth="120.0" text="Opcje" />
-                              <ComboBox fx:id="cbFilterOption" onAction="#handleFilterOption" prefHeight="25.0" prefWidth="120.0" promptText="Opcja" disable="true"/>
+                              <ComboBox fx:id="cbFilterOption" disable="true" onAction="#handleFilterOption" prefHeight="25.0" prefWidth="120.0" promptText="Opcja" />
                            </children>
                         </VBox>
                      </children>
@@ -65,9 +65,9 @@
                         <Label alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="Wydatek" />
                         <HBox spacing="5.0">
                            <children>
-                              <Button fx:id="newExpenseButton" mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Nowy" />
-                              <Button fx:id="editExpenseButton" mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edytuj" />
-                              <Button fx:id="removeExpenseButton" mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Usun" />
+                              <Button mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Nowy" />
+                              <Button mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edytuj" />
+                              <Button mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Usun" />
                            </children>
                         </HBox>
                      </children>

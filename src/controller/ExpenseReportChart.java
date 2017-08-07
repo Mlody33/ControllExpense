@@ -14,7 +14,6 @@ import model.Expense;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -72,12 +71,12 @@ public class ExpenseReportChart implements Initializable {
 		XYChart.Series<String, Number> seriesChartData = new XYChart.Series<String, Number>();
 		reportChart.getData().clear();
 
-		for(Expense data: main.getDatabase().selectExpensesByDate(date.toString())){
+		for(Expense data: main.getDatabase().getExpensesInDay(date.toString())){
 			seriesChartData.getData().add(new XYChart.Data<String, Number>(data.getName()+"\n( "+data.getQuantity()+" szt. po " + data.getPrice() + " zl. )", data.getPrice()*data.getQuantity()));
 		}
-		if(!main.getDatabase().selectExpensesByDate(date.toString()).isEmpty()) {
+		if(!main.getDatabase().getExpensesInDay(date.toString()).isEmpty()) {
 			seriesChartData.setName(date.toString() + ", " + date.getDayOfWeek().name().toLowerCase());
-			reportChart.setTitle("Dzienny, Suma " + main.getDatabase().selectExpensesSumByDate(date.toString()) + " zl. ");
+			reportChart.setTitle("Dzienny, Suma " + main.getDatabase().getExpensesSummaryInDay(date.toString()) + " zl. ");
 			reportChart.getData().add(seriesChartData);
 		}else
 			reportChart.setTitle("Brak danych w wybranym dniu");
@@ -90,7 +89,7 @@ public class ExpenseReportChart implements Initializable {
 		currentlySetDate = startDate;
 
 		for(int i = 0; i < countOfLastWeekDays; i++){
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfWeek().name(), main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfWeek().name(), main.getDatabase().getExpensesSummaryInDay(currentlySetDate.toString())));
 			currentlySetDate = currentlySetDate.minusDays(1);
 		}
 
@@ -107,7 +106,7 @@ public class ExpenseReportChart implements Initializable {
 		currentlySetDate = startDate.minusDays(startDate.getDayOfMonth() - 1);
 
 		for(int i = 1; i <= startDate.getMonth().maxLength(); i++){
-			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfMonth() + ", ", main.getDatabase().selectExpensesSumByDate(currentlySetDate.toString())));
+			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getDayOfMonth() + ", ", main.getDatabase().getExpensesSummaryInDay(currentlySetDate.toString())));
 			currentlySetDate = currentlySetDate.plusDays(1);
 		}
 		seriesChartData.setName(startDate.getMonth().name());
@@ -123,7 +122,7 @@ public class ExpenseReportChart implements Initializable {
 
 		for(int i = 1; i <= 12; i++){
 			seriesChartData.getData().add(new XYChart.Data<String, Number>(currentlySetDate.getMonth().toString(),
-				main.getDatabase().selectExpensesSumByMonth(currentlySetDate)));
+				main.getDatabase().getExpensesSummaryInMonth(currentlySetDate)));
 			currentlySetDate = currentlySetDate.plusMonths(1);
 		}
 

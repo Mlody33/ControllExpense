@@ -52,9 +52,13 @@ public class Expense {
 	public int getQuantity() { return quantity.get(); }
 	public void setQuantity(int quantity) { this.quantity = new SimpleIntegerProperty(quantity); }
 	
+	public int isPaidByCreditCardToInt(){
+		if(paidByCreditCard.get())
+			return 1;
+		else
+			return 0;
+	}
 	public boolean isPaidByCreditCard() { return paidByCreditCard.get(); }
-	
-	public int isPaidByCreditCardToInt(){ if(paidByCreditCard.get()) return 1; else return 0; }
 	public void setPaidByCreditCard(boolean paidByCreditCard) { this.paidByCreditCard = new SimpleBooleanProperty(paidByCreditCard); }
 	
 	public LocalDate getDate(){ return date.get(); }
@@ -62,7 +66,15 @@ public class Expense {
 
 	@Override
 	public String toString() {
-		return "Wydatek [" + name + ", " + category + ", " + price + ", " + quantity + ", " + paidByCreditCard + ", " + date + "]";
-	}	
-	
+		return "Expense{" +
+				"id=" + id +
+				", name=" + name +
+				", category=" + category +
+				", price=" + price +
+				", quantity=" + quantity +
+				", paidByCreditCard=" + paidByCreditCard +
+				", date=" + date +
+				'}';
+	}
+
 }

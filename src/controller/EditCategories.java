@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EditCategoriesController implements Initializable {
+public class EditCategories implements Initializable {
 
 	@FXML private TextField newCategoryName, chosenCategoryName;
 	@FXML private ComboBox<String> cbCategoryList;
@@ -46,7 +46,7 @@ public class EditCategoriesController implements Initializable {
 			String oldCategoryName = cbCategoryList.getSelectionModel().getSelectedItem();
 			main.getDatabase().updateCategory(newCategoryName.getText(), oldCategoryName);
 			dialogStage.close();
-			main.refreshDataTable();
+			main.refreshDataInTable();
 		}
 	}
 

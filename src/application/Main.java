@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import controller.*;
 import model.Expense;
@@ -15,16 +16,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
-
 public class Main extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+
+	private Logger log = Logger.getLogger("Main " + this.getClass().getName());
 	private ObservableList<Expense> expenseData = FXCollections.observableArrayList();
 	private Database db = new Database();
 	private Expense selectedExpense;
-	private ExpenseController expenseController;
+	private ExpensesOverview expenseOverview;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -35,7 +36,7 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 		
 		db.connect();
-		expenseData.addAll(db.selectExpensesData());
+		expenseData.addAll(db.getExpenses());
 		
 		initMainView();
 		showExpenseOverview();
@@ -63,14 +64,13 @@ public class Main extends Application {
 	private void showExpenseOverview() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/ExpenseOverview.fxml"));
+			loader.setLocation(Main.class.getResource("../view/ExpensesOverview.fxml"));
 			AnchorPane expenseOverview = loader.load();
 			
 			rootLayout.setCenter(expenseOverview);
 			
-			//ExpenseController controller = loader.getController();
-			expenseController = loader.getController();
-			expenseController.setMain(this);
+			this.expenseOverview = loader.getController();
+			this.expenseOverview.setMain(this);
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -114,7 +114,7 @@ public class Main extends Application {
 			Scene scene = new Scene(addExpense);
 			dialogStage.setScene(scene);
 
-			AddExpenseController controller = loader.getController();
+			AddExpense controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setMain(this);
 			controller.setExpense(expense);
@@ -142,10 +142,10 @@ public class Main extends Application {
 			Scene scene = new Scene(editCategory);
 			dialogStage.setScene(scene);
 
-			EditCategoriesController controller = loader.getController();
+			EditCategories controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setMain(this);
-			controller.setCategoryList(db.selectExpensesCategory());
+			controller.setCategoryList(db.getExpensesCategory());
 
 			dialogStage.showAndWait();
 		} catch (IOException e) {
@@ -153,40 +153,40 @@ public class Main extends Application {
 		}
 	}
 
-	public void refreshDataTable(){
+	public void refreshDataInTable(){
         expenseData.clear();
-        expenseData.addAll(db.selectExpensesData());
+        expenseData.addAll(db.getExpenses());
         selectedExpense = null;
 	}
 
-	public ObservableList<Expense> getExpensesData() {
-	    System.out.println("[G]expenseData");
+	public ObservableList<Expense> getExpenses() {
+	    log.info("[G]expenseData");
 	    return expenseData;
 	}
 	
 	public Database getDatabase() {
-	    System.out.println("[G]db");
+	    log.info("[G]database");
 	    return db;
 	}
 	
 	public Expense getSelectedExpense() {
-	    System.out.println("[G]selectedExpense");
+	    log.info("[G]selectedExpense");
 	    return selectedExpense;
 	}
 	
 	public void setSelectedExpense(Expense expense) {
-	    System.out.println("[S]selectedExpense");
+	    log.info("[S]selectedExpense");
 	    this.selectedExpense = expense;
 	}
 	
 	public Window getPrimaryStage() {
-	    System.out.println("[G]expense");
+	    log.info("[G]expense");
 	    return primaryStage;
 	}
 	
-	public ExpenseController getExpenseController() {
-	    System.out.println("[G]ExpenseController");
-	    return expenseController;
+	public ExpensesOverview getExpenseOverview() {
+	    log.info("[G]ExpensesOverview");
+	    return expenseOverview;
 	}
 	
 }

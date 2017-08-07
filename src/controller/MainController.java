@@ -5,59 +5,49 @@ import java.util.ResourceBundle;
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
 import javafx.application.Platform;
 
 public class MainController implements Initializable{
 	
-	
-	@FXML MenuItem refreshDataMenuItem;
-	@FXML MenuItem closeAppMenuItem;
-	
-	@FXML MenuItem addExpenseMenuItem;
-	@FXML MenuItem editExpenseMenuItem;
-	@FXML MenuItem deleteExpenseMenuItem;
-	
-	@FXML MenuItem showSheetReportMenuItem;
-	@FXML MenuItem showChartReportMenuItem;
-	
 	private Main main;
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-	}
 
 	public void setMain(Main main) {
 		this.main = main;
 	}
-	
-	@FXML public void menuHandleRefreshData() {
-	    main.refreshDataTable();
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
 	}
 
-	@FXML public void menuHandleExit() {
+	@FXML public void handleRefreshData() {
+	    main.refreshDataInTable();
+	}
+
+	@FXML public void handleExit() {
         main.getDatabase().closeConnection();
         Platform.exit();
 	}
 
-	@FXML public void menuHandleChangeCategories() { main.showEditCategoryNameDialog(); }
-
-	@FXML public void menuHandleAddExpense() {
-		main.getExpenseController().handleAddExpense();
+	@FXML public void handleChangeCategories() {
+		main.showEditCategoryNameDialog();
 	}
 
-	@FXML public void menuHandleEditExpense() {
-		main.getExpenseController().handleEditExpense();
+	@FXML public void handleAddExpense() {
+		main.getExpenseOverview().handleAddExpense();
 	}
 
-	@FXML public void menuHandleRemoveExpense() {
-		main.getExpenseController().handleRemoveExpense();
+	@FXML public void handleEditExpense() {
+		main.getExpenseOverview().handleEditExpense();
 	}
 
-	@FXML public void menuHandleShowSheetReport() {}
+	@FXML public void handleDeleteExpense() {
+		main.getExpenseOverview().handleRemoveExpense();
+	}
 
-	@FXML public void menuHandleShowCharReport() {
+	@FXML public void handleShowSheetReport() {}
+
+	@FXML public void handleShowCharReport() {
 		main.showExpenseChart();
 	}
 	

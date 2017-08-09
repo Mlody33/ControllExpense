@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCategories">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditCategories">
    <children>
       <GridPane hgap="5.0" layoutY="10.0" prefHeight="145.0" prefWidth="400.0" vgap="5.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -25,9 +25,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Wybierz kategorie" />
-            <Label text="Wybrana kategoria" GridPane.rowIndex="2" />
-            <Label text="Nowa nazwa" GridPane.rowIndex="3" />
+            <Label text="Choose category" />
+            <Label text="Chosen category" GridPane.rowIndex="2" />
+            <Label text="New name" GridPane.rowIndex="3" />
             <TextField fx:id="newCategoryName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="cbCategoryList" onAction="#handleChosenCategory" prefWidth="160.0" GridPane.columnIndex="1" />
             <TextField fx:id="chosenCategoryName" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -38,12 +38,12 @@
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleAcceptChange" prefHeight="35.0" prefWidth="120.0" text="Akceptuj">
+            <Button mnemonicParsing="false" onAction="#handleAcceptChange" prefHeight="35.0" prefWidth="120.0" text="Accept">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleCancelChange" prefHeight="35.0" prefWidth="120.0" text="Anuluj">
+            <Button mnemonicParsing="false" onAction="#handleCancelChange" prefHeight="35.0" prefWidth="120.0" text="Cancel">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

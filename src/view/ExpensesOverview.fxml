@@ -19,11 +19,11 @@
          <center>
             <TableView fx:id="expensesTable" onMouseClicked="#handleSelectedExpense" tableMenuButtonVisible="true">
               <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nazwa" />
-                <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Kategoria" />
-                  <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Cena" />
-                  <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Ilosc" />
-                  <TableColumn fx:id="paidByCreditCardColumn" prefWidth="75.0" text="Zapłacone kartą" />
+                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="categoryColumn" prefWidth="75.0" text="Category" />
+                  <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Quantity" />
+                  <TableColumn fx:id="paidByCreditCardColumn" prefWidth="75.0" text="Credit card" />
                   <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Data" />
               </columns>
                <columnResizePolicy>
@@ -38,23 +38,23 @@
                      <children>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="170.0" text="Filtruj" />
+                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="170.0" text="Filter by" />
                               <HBox>
                                  <children>
-                                    <ToggleButton fx:id="filterName" mnemonicParsing="false" onMouseClicked="#handleFilterName" prefWidth="85.0" text="Nazwa">
+                                    <ToggleButton fx:id="filterName" mnemonicParsing="false" onMouseClicked="#handleFilterName" prefWidth="85.0" text="Name">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="filter" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="filterCategory" mnemonicParsing="false" onMouseClicked="#handleFilterCategory" prefWidth="85.0" text="Kategoria" toggleGroup="$filter" />
+                                    <ToggleButton fx:id="filterCategory" mnemonicParsing="false" onMouseClicked="#handleFilterCategory" prefWidth="85.0" text="Category" toggleGroup="$filter" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="120.0" text="Opcje" />
-                              <ComboBox fx:id="cbFilterOption" disable="true" onAction="#handleFilterOption" prefHeight="25.0" prefWidth="120.0" promptText="Opcja" />
+                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="120.0" text="Option" />
+                              <ComboBox fx:id="cbFilterOption" disable="true" onAction="#handleFilterOption" prefHeight="25.0" prefWidth="120.0" promptText="Option" />
                            </children>
                         </VBox>
                      </children>
@@ -62,12 +62,12 @@
                   <HBox prefHeight="59.0" prefWidth="23.0" HBox.hgrow="ALWAYS" />
                   <VBox spacing="5.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="Wydatek" />
+                        <Label alignment="CENTER" prefHeight="25.0" prefWidth="240.0" text="Expense" />
                         <HBox spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Nowy" />
-                              <Button mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edytuj" />
-                              <Button mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Usun" />
+                              <Button mnemonicParsing="false" onAction="#handleAddExpense" prefWidth="80.0" text="Add" />
+                              <Button mnemonicParsing="false" onAction="#handleEditExpense" prefWidth="80.0" text="Edit" />
+                              <Button mnemonicParsing="false" onAction="#handleRemoveExpense" prefWidth="80.0" text="Delete" />
                            </children>
                         </HBox>
                      </children>

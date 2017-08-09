@@ -19,7 +19,7 @@
    <children>
       <BorderPane layoutX="210.0" layoutY="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <AreaChart fx:id="reportChart" alternativeRowFillVisible="false" horizontalZeroLineVisible="false" title="Rodzaj wykresu" verticalZeroLineVisible="false" BorderPane.alignment="CENTER">
+            <AreaChart fx:id="reportChart" alternativeRowFillVisible="false" horizontalZeroLineVisible="false" title="Chart type" verticalZeroLineVisible="false" BorderPane.alignment="CENTER">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -31,14 +31,14 @@
          <left>
             <VBox alignment="CENTER" prefWidth="180.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Rodzaj wykresu" />
+                  <Label text="Chart type" />
                   <ComboBox fx:id="chartTypeComboBox" onAction="#changeChartType" prefWidth="160.0" />
                   <Separator>
                      <VBox.margin>
                         <Insets bottom="30.0" top="40.0" />
                      </VBox.margin>
                   </Separator>
-                  <Label text="Ustawienia wykresu" />
+                  <Label text="Chart option" />
                   <StackPane>
                      <children>
                         <VBox fx:id="dailyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
@@ -46,32 +46,33 @@
                               <DatePicker fx:id="chosenDayForDailyChart" onAction="#handleDayChangedForDailyChart" prefWidth="160.0" />
                               <HBox alignment="CENTER" spacing="10.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#handleSetPreviousDay" prefWidth="75.0" text="Poprzedni" />
-                                    <Button mnemonicParsing="false" onAction="#handleSetNextDay" prefWidth="75.0" text="Następny" />
+                                    <Button mnemonicParsing="false" onAction="#handleSetPreviousDay" prefWidth="75.0" text="Previous" />
+                                    <Button mnemonicParsing="false" onAction="#handleSetNextDay" prefWidth="75.0" text="Next" />
                                  </children>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#handleSetDayToToday" prefWidth="160.0" text="Dzisiaj" />
+                              <Button mnemonicParsing="false" onAction="#handleSetDayToToday" prefWidth="160.0" text="Show today" />
                            </children>
                         </VBox>
                         <VBox fx:id="weeklyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleShowNextWeek" prefWidth="160.0" text="Dodaj kolejny tydzień" />
-                              <Button mnemonicParsing="false" onAction="#handleShowCurrentWeek" prefWidth="160.0" text="Pokaz bieżący" />
+                              <Button mnemonicParsing="false" onAction="#handleShowNextWeek" prefWidth="160.0" text="Add previous week" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentWeek" prefWidth="160.0" text="Show current" />
                            </children>
                         </VBox>
                         <VBox fx:id="monthlyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleShowPreviusMonth" prefWidth="160.0" text="Pokaz poprzedni miesiąc" />
-                              <Button mnemonicParsing="false" onAction="#handleShowCurrentMonth" prefWidth="160.0" text="Pokaz aktualny miesiąc" />
+                              <Button mnemonicParsing="false" onAction="#handleShowPreviousMonth" prefWidth="160.0" text="Add previous month" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentMonth" prefWidth="160.0" text="Show current month" />
                            </children></VBox>
                         <VBox fx:id="yearlyChartTypeBox" alignment="CENTER" spacing="10.0" visible="false">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleShowLastYear" prefWidth="160.0" text="Pokaż poprzedni rok" />
-                              <Button mnemonicParsing="false" onAction="#handleShowCurrentYear" prefWidth="160.0" text="Pokaż aktualny rok" />
-                              <Button mnemonicParsing="false" prefWidth="160.0" text="Pokaż szczegółowe dane" />
+                              <Button mnemonicParsing="false" onAction="#handleShowLastYear" prefWidth="160.0" text="Add previous year" />
+                              <Button mnemonicParsing="false" onAction="#handleShowCurrentYear" prefWidth="160.0" text="Show current year" />
+                              <Button mnemonicParsing="false" prefWidth="160.0" text="Show details" />
                            </children></VBox>
                      </children>
                   </StackPane>
+                  <Button mnemonicParsing="false" onAction="#handleCloseDialog" prefWidth="160.0" text="Close" />
                </children>
                <BorderPane.margin>
                   <Insets />

@@ -99,7 +99,6 @@ public class ExpensesOverview implements Initializable{
 		main.setSelectedExpense(expensesTable.getSelectionModel().getSelectedItem());
 	}
 
-
 	@FXML public void handleFilterName() {
 		if(filterName.isSelected()) {
 			cbFilterOption.setDisable(false);

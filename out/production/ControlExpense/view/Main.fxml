@@ -9,28 +9,28 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Plik">
+            <Menu mnemonicParsing="false" text="File">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleRefreshData" text="Odśwież dane" />
-                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Wyjdz" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRefreshData" text="Refresh date" />
+                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Edytuj">
+            <Menu mnemonicParsing="false" text="Edit">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleChangeCategories" text="Modyfikuj kategorie" />
+                <MenuItem mnemonicParsing="false" onAction="#handleChangeCategories" text="Edit category" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Wydatek">
+            <Menu mnemonicParsing="false" text="Expense">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleAddExpense" text="Dodaj nowy" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleEditExpense" text="Edytuj zaznaczony" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleDeleteExpense" text="Usuń zaznaczony" />
+                <MenuItem mnemonicParsing="false" onAction="#handleAddExpense" text="Add new" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleEditExpense" text="Edit selected" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleDeleteExpense" text="Delete selected" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Raporty">
+            <Menu mnemonicParsing="false" text="Report">
               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowSheetReport" text="Arkusze" />
-                <MenuItem mnemonicParsing="false" onAction="#handleShowCharReport" text="Wykresy" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowSheetReport" text="Sheets" />
+                <MenuItem mnemonicParsing="false" onAction="#handleShowCharReport" text="Charts" />
               </items>
             </Menu>
          </menus>

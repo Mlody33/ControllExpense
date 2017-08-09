@@ -50,7 +50,5 @@ public class MainController implements Initializable{
 	@FXML public void handleShowCharReport() {
 		main.showExpenseChart();
 	}
-	
-	
 
 }

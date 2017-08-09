@@ -18,10 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.VBox;
 
+import static application.AppState.*;
+
 public class ExpensesChart implements Initializable {
 
 	@FXML private AreaChart<String, Number> reportChart;
-	@FXML private ComboBox<AppState> chartTypeComboBox;
+	@FXML private ComboBox<String> chartTypeComboBox;
 	
 	@FXML private VBox dailyChartTypeBox;
 	@FXML private VBox weeklyChartTypeBox;
@@ -32,6 +34,11 @@ public class ExpensesChart implements Initializable {
 
 	private static final int countOfLastWeekDays = 7;
 
+	private static final String DAILY = "Daily";
+	private static final String WEEKLY = "Weekly";
+	private static final String MONTHLY = "Monthly";
+	private static final String YEARLY = "Yearly";
+
 	private Main main;
 	private Stage dialogStage;
 		
@@ -40,7 +47,7 @@ public class ExpensesChart implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<AppState> chartTypes = FXCollections.observableArrayList(AppState.DAILY_CHART, AppState.WEEKLY_CHART, AppState.MONTHLY_CHART, AppState.YEARLY_CHART);
+		ObservableList<String> chartTypes = FXCollections.observableArrayList(AppState.DAILY_CHART.get(), AppState.WEEKLY_CHART.get(), AppState.MONTHLY_CHART.get(), AppState.YEARLY_CHART.get());
 		chartTypeComboBox.setItems(chartTypes);
 	}
 	
@@ -83,7 +90,7 @@ public class ExpensesChart implements Initializable {
 		weeklyChartType(today);
 	}
 
-	@FXML public void handleShowPreviusMonth() {
+	@FXML public void handleShowPreviousMonth() {
 		currentlySetDate = currentlySetDate.minusMonths(2);
 		monthlyChartType(currentlySetDate);
 	}
@@ -103,6 +110,11 @@ public class ExpensesChart implements Initializable {
 		yearlyChartType(today);
 	}
 
+	@FXML public void handleCloseDialog() {
+		dialogStage.close();
+	}
+
+
 	private void dailyChartType(LocalDate date){
 		chosenDayForDailyChart.setValue(date);
 
@@ -114,7 +126,7 @@ public class ExpensesChart implements Initializable {
 		}
 		if(!main.getDatabase().getExpensesInDay(date.toString()).isEmpty()) {
 			seriesChartData.setName(date.toString() + AppState.SEPARATION.get() + date.getDayOfWeek().name().toLowerCase());
-			reportChart.setTitle(AppState.WEEKLY_CHART.get() + AppState.SPACE.get() + AppState.SUM.get() + AppState.SPACE.get() + main.getDatabase().getExpensesSummaryInDay(date.toString()) + AppState.CURRENCY.get());
+			reportChart.setTitle(WEEKLY_CHART.get() + AppState.SPACE.get() + AppState.SUM.get() + AppState.SPACE.get() + main.getDatabase().getExpensesSummaryInDay(date.toString()) + AppState.CURRENCY.get());
 			reportChart.getData().add(seriesChartData);
 		}else
 			reportChart.setTitle(AppState.NO_DATA.get());
@@ -131,7 +143,7 @@ public class ExpensesChart implements Initializable {
 		}
 
 		seriesChartData.setName(startDate + " - " + currentlySetDate.plusDays(1));
-		reportChart.setTitle(AppState.WEEKLY_CHART.get());
+		reportChart.setTitle(WEEKLY_CHART.get());
 		reportChart.getData().add(seriesChartData);
 
 	}
@@ -146,7 +158,7 @@ public class ExpensesChart implements Initializable {
 			currentlySetDate = currentlySetDate.plusDays(1);
 		}
 		seriesChartData.setName(startDate.getMonth().name());
-		reportChart.setTitle(AppState.MONTHLY_CHART.get());
+		reportChart.setTitle(MONTHLY_CHART.get());
 		reportChart.getData().add(seriesChartData);
 
 	}
@@ -176,19 +188,19 @@ public class ExpensesChart implements Initializable {
 		yearlyChartTypeBox.setVisible(false);
 
 		switch(chartTypeComboBox.getSelectionModel().getSelectedItem()){
-			case DAILY_CHART:
+			case DAILY:
 				dailyChartTypeBox.setVisible(true);
 				dailyChartType(today);
 				break;
-			case WEEKLY_CHART:
+			case WEEKLY:
 				weeklyChartTypeBox.setVisible(true);
 				weeklyChartType(today);
 				break;
-			case MONTHLY_CHART:
+			case MONTHLY:
 				monthlyChartTypeBox.setVisible(true);
 				monthlyChartType(today);
 				break;
-			case YEARLY_CHART:
+			case YEARLY:
 				yearlyChartTypeBox.setVisible(true);
 				yearlyChartType(today);
 				break;

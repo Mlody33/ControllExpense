@@ -1,7 +1,7 @@
 package application;
 
 public enum AppState {
-    APP_TITLE("Controll your expenses"),
+    APP_TITLE("Control your expenses"),
     ADD_EXPENSE_TITLE("Add new expense"),
     EDIT_EXPENSE_TITLE("Edit selected expense"),
     EXPENSE_CHART_TITLE("Expenses chart"),
@@ -19,7 +19,7 @@ public enum AppState {
     TYPE_ALL_DATA_EDIT("First insert data to all fields"),
     TYPE_ALL_DATA_ADD("First insert data to all fields if you want to add new expense"),
     DEFAULT_QUANTITY("1"),
-    CURRENCY(" zl."),
+    CURRENCY(" $"),
     SUM("Sum"),
     PIECE_FOR("piece for"),
     SPACE(" "),

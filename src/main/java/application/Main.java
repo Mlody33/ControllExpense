@@ -45,14 +45,14 @@ public class Main extends Application {
 	private void initMainView() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/Main.fxml"));
+			loader.setLocation(getClass().getResource("/view/Main.fxml"));
 			rootLayout = loader.load();
-			
+
 			MainController controller = loader.getController();
 			controller.setMain(this);
 
 			Scene scene = new Scene(rootLayout);
-			scene.getStylesheets().add(Main.class.getResource("../application/style.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle(AppState.APP_TITLE.get());
 			primaryStage.show();
@@ -64,7 +64,7 @@ public class Main extends Application {
 	private void showExpenseOverview() {
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/ExpensesOverview.fxml"));
+			loader.setLocation(getClass().getResource("/view/ExpensesOverview.fxml"));
 			AnchorPane expenseOverview = (AnchorPane) loader.load();
 			
 			rootLayout.setCenter(expenseOverview);
@@ -79,7 +79,7 @@ public class Main extends Application {
 	public void showExpenseChart() {
 		try{			
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/ExpenseChart.fxml"));
+			loader.setLocation(getClass().getResource("/view/ExpenseChart.fxml"));
 			AnchorPane expenseChart = loader.load();
 			
 			Stage dialogStage = new Stage();
@@ -103,7 +103,7 @@ public class Main extends Application {
 	public boolean showAddExpenseDialog(Expense expense) {
 		try{
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/AddExpense.fxml"));
+			loader.setLocation(getClass().getResource("/view/AddExpense.fxml"));
 			AnchorPane addExpense = loader.load();
 
 			Stage dialogStage = new Stage();
@@ -131,7 +131,7 @@ public class Main extends Application {
 	public void showEditCategoryNameDialog() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("../view/EditCategories.fxml"));
+			loader.setLocation(getClass().getResource("/view/EditCategories.fxml"));
 			AnchorPane editCategory = loader.load();
 
 			Stage dialogStage = new Stage();

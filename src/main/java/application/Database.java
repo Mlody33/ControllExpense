@@ -20,13 +20,13 @@ public class Database {
 
 	private static final String ERROR_NAME = "Error in method";
 	private Logger log = Logger.getLogger(this.getClass().getName());
-	private static final String URL_DATABASE = "jdbc:sqlite:./src/database/controlExpense.db";
+	private static final String URL_DATABASE = "jdbc:sqlite:./src/main/java/database/controlExpense.db";
+
 
 	void connect(){
 		try{
 			connection = DriverManager.getConnection(URL_DATABASE);
 			statement = connection.createStatement();
-			System.out.println("Connected");
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
@@ -34,8 +34,8 @@ public class Database {
 	
 	public void closeConnection(){
 		try{
-			connection.close();
 			statement.close();
+			connection.close();
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}

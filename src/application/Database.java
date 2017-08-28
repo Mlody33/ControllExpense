@@ -20,16 +20,12 @@ public class Database {
 
 	private static final String ERROR_NAME = "Error in method";
 	private Logger log = Logger.getLogger(this.getClass().getName());
-	private static final String URL_DATABASE = "jdbc:mysql://localhost:3306/";
-	private static final String NAME_DATABASE = "control_expenses";
-	private static final String PROPERTIES_DATABASE = "?useUnicode=true&characterEncoding=utf8&autoReconnect=true";
-	private static final String USERNAME_DATABASE = "root";
-	private static final String PASSWORD_DATABASE = "";
+	private static final String URL_DATABASE = "jdbc:sqlite:./src/database/controlExpense.db";
 
 	void connect(){
 		try{
-			connection = DriverManager.getConnection(URL_DATABASE+NAME_DATABASE+PROPERTIES_DATABASE, USERNAME_DATABASE, PASSWORD_DATABASE);
-			statement = connection.createStatement();			
+			connection = DriverManager.getConnection(URL_DATABASE);
+			statement = connection.createStatement();
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
@@ -49,10 +45,11 @@ public class Database {
 		try{
 			ResultSet myRs = statement.executeQuery("SELECT * FROM expenses");
 			while(myRs.next()){
-				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
+				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), LocalDate.parse(myRs.getString("date"))));
 			}
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
+			e.printStackTrace();
 		}
 		return expenseData;
 	}
@@ -62,7 +59,7 @@ public class Database {
 		try{
 			ResultSet myRs = statement.executeQuery("SELECT * FROM expenses WHERE name = '"+value+"' OR category = '"+value+"' ");
 			while(myRs.next()){
-				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
+				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), LocalDate.parse(myRs.getString("date"))));
 			}
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
@@ -75,7 +72,7 @@ public class Database {
 		try{
 			ResultSet myRs = statement.executeQuery("SELECT * FROM expenses WHERE date = '"+date+"'");
 			while(myRs.next()){
-				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), myRs.getDate("date").toLocalDate()));
+				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), LocalDate.parse(myRs.getString("date"))));
 			}
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
@@ -138,10 +135,10 @@ public class Database {
 	
 	public void insertExpense(Expense expense){
 		try{
-			statement.executeUpdate("INSERT INTO expense (name, category, price, quantity, isPaidByCreditCard, date) values ('"+expense.getName()+"', '"+expense.getCategory()+"', '"+expense.getPrice()+"', '"+expense.getQuantity()+"', '"+expense.isPaidByCreditCardToInt()+"', '"+expense.getDate()+"')");
+			statement.executeUpdate("INSERT INTO expenses (name, category, price, quantity, isPaidByCreditCard, date) values ('"+expense.getName()+"', '"+expense.getCategory()+"', '"+expense.getPrice()+"', '"+expense.getQuantity()+"', '"+expense.isPaidByCreditCardToInt()+"', '"+expense.getDate()+"')");
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
-
+			e.printStackTrace();
 		}
 	}
 

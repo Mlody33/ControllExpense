@@ -48,7 +48,7 @@ public class ExpensesOverview implements Initializable{
 		Expense tmpExpense = new Expense();
 		boolean isAccepted = main.showAddExpenseDialog(tmpExpense);
 		if(isAccepted){
-			main.getExpenses().add(tmpExpense);
+			main.getExpenses().add(0, tmpExpense);
 			main.getDatabase().insertExpense(tmpExpense);
 		}
 	}

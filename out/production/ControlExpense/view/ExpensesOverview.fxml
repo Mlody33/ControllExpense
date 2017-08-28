@@ -41,12 +41,12 @@
                               <Label alignment="CENTER" prefHeight="25.0" prefWidth="170.0" text="Filter by" />
                               <HBox>
                                  <children>
-                                    <ToggleButton fx:id="filterName" mnemonicParsing="false" onMouseClicked="#handleFilterName" prefWidth="85.0" text="Name">
+                                    <ToggleButton fx:id="filterName" mnemonicParsing="false" onMouseClicked="#handleFilterName" prefWidth="85.0" style="-fx-background-radius: 3 0 0 3;" text="Name">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="filter" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="filterCategory" mnemonicParsing="false" onMouseClicked="#handleFilterCategory" prefWidth="85.0" text="Category" toggleGroup="$filter" />
+                                    <ToggleButton fx:id="filterCategory" mnemonicParsing="false" onMouseClicked="#handleFilterCategory" prefWidth="85.0" style="-fx-background-radius: 0 3 3 0;" text="Category" toggleGroup="$filter" />
                                  </children>
                               </HBox>
                            </children>

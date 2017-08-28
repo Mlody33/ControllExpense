@@ -43,13 +43,12 @@ public class Database {
 	ObservableList<Expense> getExpenses(){
 		ObservableList<Expense> expenseData = FXCollections.observableArrayList();
 		try{
-			ResultSet myRs = statement.executeQuery("SELECT * FROM expenses");
+			ResultSet myRs = statement.executeQuery("SELECT * FROM expenses ORDER BY date DESC, id DESC");
 			while(myRs.next()){
 				expenseData.add(new Expense(myRs.getInt("id"), myRs.getString("name"), myRs.getString("category"), myRs.getDouble("price"), myRs.getInt("quantity"), myRs.getBoolean("isPaidByCreditCard"), LocalDate.parse(myRs.getString("date"))));
 			}
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
-			e.printStackTrace();
 		}
 		return expenseData;
 	}
@@ -138,7 +137,6 @@ public class Database {
 			statement.executeUpdate("INSERT INTO expenses (name, category, price, quantity, isPaidByCreditCard, date) values ('"+expense.getName()+"', '"+expense.getCategory()+"', '"+expense.getPrice()+"', '"+expense.getQuantity()+"', '"+expense.isPaidByCreditCardToInt()+"', '"+expense.getDate()+"')");
 		}catch(SQLException e){
 			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
-			e.printStackTrace();
 		}
 	}
 

@@ -34,7 +34,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		
 		db.connect();
 		expenses.addAll(db.getExpenses());
 

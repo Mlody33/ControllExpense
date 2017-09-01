@@ -1,9 +1,0 @@
-controller\EditCategories.class
-controller\ExpensesOverview.class
-controller\AddExpense.class
-controller\MainController.class
-model\Expense.class
-controller\ExpensesChart.class
-application\Database.class
-application\Main.class
-application\AppState.class

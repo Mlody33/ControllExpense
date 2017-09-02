@@ -1,5 +1,5 @@
 # ControllExpense
 
-Application in JavaFX to controll expenses.
+Application in JavaFX to your controll expenses.
 
-**That app is still work in progress.**
+**That app is still work in progress, but works stable**

@@ -28,8 +28,7 @@ public class Database {
 			connection = DriverManager.getConnection(URL_DATABASE);
 			statement = connection.createStatement();
 		}catch(SQLException e){
-//			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
-			e.printStackTrace();
+			log.warning(ERROR_NAME + Arrays.toString(Thread.currentThread().getStackTrace()));
 		}
 	}
 	

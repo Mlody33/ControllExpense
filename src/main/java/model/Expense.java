@@ -85,8 +85,8 @@ public class Expense {
 		return paidByCreditCard.get();
 	}
 
-	public void setPaidByCreditCard (
-			boolean paidByCreditCard) { this.paidByCreditCard = new SimpleBooleanProperty(paidByCreditCard);
+	public void setPaidByCreditCard(boolean paidByCreditCard) {
+		this.paidByCreditCard = new SimpleBooleanProperty(paidByCreditCard);
 	}
 	
 	public LocalDate getDate() {
